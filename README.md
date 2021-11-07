@@ -6,7 +6,7 @@ This quiz was created to test your knowledge of JavaScript fundamentals. Make su
 ## ACCEPTANCE CRITERIA 
 - Timer starts on click of "Start" button
 - Mutliple Choice questions are presented one at a time
-- Inncorrect answers take 15 seconds off the clock
+- Inncorrect answers take 10 seconds off the clock
 - Game is over when all questions are answered or time runs out
 - Scores are saved in local storage under users initials
 
