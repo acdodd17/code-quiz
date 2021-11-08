@@ -8,6 +8,7 @@ header {
 
 #high-scores {
     color: magenta;
+    text-decoration: none;
 }
 
 main {
@@ -42,7 +43,7 @@ main {
     flex-direction: column;
 }
 #answer-buttons button {
-    width: 25%;
+    width: 35%;
     margin: 5px;
     text-align: left;
 }
@@ -70,4 +71,12 @@ main {
 
 .btn:hover {
     background-color: magenta;
+}
+
+.answer {
+    color: rgb(192, 192, 192);
+    border-top: 2px solid rgb(192, 192, 192);
+    margin: 10px;
+    padding: 5px;
+    font-style: italic;
 }
