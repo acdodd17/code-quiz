@@ -15,7 +15,8 @@ main {
     justify-content: space-around;
     align-items: center;
 }
-.page-content {
+
+#page-content {
     text-align: center;
 }
 
@@ -30,14 +31,23 @@ main {
     width: 70%;
 }
 
+#question {
+    font-size: larger;
+    font-weight: bold;
+    padding: 10px;
+}
+
 .btn-list {
     display: flex;
     flex-direction: column;
 }
-#answer-buttons {
+#answer-buttons button {
     width: 25%;
-    margin: 20px;
+    margin: 5px;
+    text-align: left;
 }
+
+
 
 .hide {
     display: none;

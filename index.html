@@ -11,26 +11,28 @@
         <div>
             <p id=high-scores>View high scores</p>
         </div>
-        <div>
+        <div id="counter">
             <p>Time: 0</p>
         </div>
     </header>
     <main>
-        <section class="page-content">
+        <section id="page-content">
             <h2 id="quiz-title">Coding Quiz Challenge</h2>
             <p>Try to answer the following code-related questions within the time limit.<br>
             Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-            <button type="button" id="start-quiz" class="btn">Start Quiz</button>
+            <button type="button" id="start-btn" class="btn">Start Quiz</button>
         </section>
 
         <div class="container">
             <div id="question-container" class="hide">
-                <div id="question">Question</div>
+                <div id="question">
+                    <h2>Question</h2>
+                </div>
                 <div id="answer-buttons" class="btn-list">
-                    <button class="btn">1. Answer</button>
-                    <button class="btn">2. Answer</button>
-                    <button class="btn">3. Answer</button>
-                    <button class="btn">4. Answer</button>
+                    <button class="btn" id="1">1. Answer</button>
+                    <button class="btn" id="2">2. Answer</button>
+                    <button class="btn" id="3">3. Answer</button>
+                    <button class="btn" id="4">4. Answer</button>
                 </div>
             </div>
         </div>
