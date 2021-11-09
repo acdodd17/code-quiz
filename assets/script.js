@@ -8,7 +8,7 @@ var answer1 = document.getElementById("1");
 var answer2 = document.getElementById("2");
 var answer3 = document.getElementById("3");
 var answer4 = document.getElementById("4");
-var response = document.getElementById("response");
+var results = document.getElementById("results-box");
 
 var questions = [
     {
@@ -41,59 +41,7 @@ var questions = [
 var currentQuestion = 0;
 var lastQuestion = questions.length-1;
 
-var startQuiz = function () {
-    countdown();
-    console.log("Started");
-    questionContainerEl.classList.remove("hide");
-    pageContentEl.classList.add("hide");
-    currentQuestion = 0;
-    setNextQuestion();
-};
-
-var setNextQuestion = function () {
-    
-    for (i = 0; i <= questions.length; i++) {
-        var newQuestion = questions[currentQuestion];
-        questionEl.innerHTML = newQuestion.question;
-        answer1.innerText = newQuestion.choices[0];
-        answer2.innerText = newQuestion.choices[1];
-        answer3.innerText = newQuestion.choices[2];
-        answer4.innerText = newQuestion.choices[3];  
-    }
-
-    currentQuestion++
-    answerButtonsEl.addEventListener("click", setNextQuestion);
-};
-
-var selectAnswer = function (event) {
-    var selectedButton = event.target;
-    var answer = questions[i].answer;
-
-    checkAnswer();
-
-    if (currentQuestion < lastQuestion) {
-        currentQuestion++;
-        setNextQuestion();
-    } else if (currentQuestion >= questions.length) {
-        finished();
-        createDiv.textContent = "End of Quiz!"
-    };
-};
-
-// NOT WORKING!
-var checkAnswer = function () { 
-    
-    // If Correct
-    if (answer === selectedButton.innerHTML) {
-        response.textContent = "Correct!";
-    } else {
-    // If wrong, lose 10 seconds
-        timeLeft = timeLeft - 10;
-        response.textContent = "Wrong!";
-    }
-};
-
-function countdown () {
+var countdown = function () {
     var timeLeft = 75;
 
     var timeInterval = setInterval(function() {
@@ -107,10 +55,56 @@ function countdown () {
     }, 1000);
 };
 
-var finished = function () {
+var startQuiz = function () {
+    countdown();
+    console.log("Started");
+    questionContainerEl.classList.remove("hide");
+    pageContentEl.classList.add("hide");
+    currentQuestion = 0;
+    setNextQuestion();
+};
+
+var setNextQuestion = function () {
     
-    // Calculates time remaining and replaces it with score
+    for (i = 0; i <= questions.length; i++) {
+      
+        var newQuestion = questions[currentQuestion];
+        questionEl.innerHTML = newQuestion.question;
+        answer1.innerText = newQuestion.choices[0];
+        answer2.innerText = newQuestion.choices[1];
+        answer3.innerText = newQuestion.choices[2];
+        answer4.innerText = newQuestion.choices[3];  
+    }
+    
+    answerButtonsEl.addEventListener("click", setNextQuestion);
+    currentQuestion++
+    
+    if (newQuestion >= questions.length) {
+        finished();
+    }
+};
+
+// NOT WORKING!
+var checkAnswer = function () { 
+    
+    // If Correct
+    if (answerButtonsEl.innerText === questions[i].answer) {
+        response.textContent = "Correct!";
+    } else {
+    // If wrong, lose 10 seconds
+        timeLeft = timeLeft - 10;
+        response.textContent = "Wrong!";
+    }
+};
+
+var finished = function () {
+    // show results box
+    results.classList.remove("hide");
+    questionContainerEl.classList.add("hide");
+
+    // Calculates time remaining and uses it as score
     if (timeLeft >= 0) {
+        document.createElement("span").id("score");
        
     }
 
