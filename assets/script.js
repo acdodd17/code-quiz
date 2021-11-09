@@ -4,10 +4,7 @@ var pageContentEl = document.getElementById("page-content");
 var questionContainerEl = document.getElementById("question-container");
 var questionEl = document.getElementById("question");
 var answerButtonsEl = document.getElementById("answer-buttons");
-var answer1 = document.getElementById("1");
-var answer2 = document.getElementById("2");
-var answer3 = document.getElementById("3");
-var answer4 = document.getElementById("4");
+var response = document.getElementById("response");
 
 var questions = [
     {
@@ -37,7 +34,7 @@ var questions = [
     }
 ]; 
 
-var currentQuestion = 0
+var currentQuestion = 0;
 var lastQuestion = questions.length-1;
 
 var startQuiz = function () {
@@ -50,16 +47,31 @@ var startQuiz = function () {
 };
 
 var setNextQuestion = function () {
-    var newQuestion = questions[currentQuestion];
-    questionEl.textContent = newQuestion.question;
-    answer1.textContent = newQuestion.choices[0];
-    answer2.textContent = newQuestion.choices[1];
-    answer3.textContent = newQuestion.choices[2];
-    answer4.textContent = newQuestion.choices[3];
+    
+    for (i = 0; i <= questions.length; i++) {
+        var newQuestion = questions[currentQuestion];
+        questionEl.innerHTML = newQuestion.question;
+
+        var choices = newQuestion.choices; 
+        
+        choices.forEach(choice => {
+            var button = document.getElementsByClassName('ans-btn');
+            button.innerHTML = choice;
+
+            button.addEventListener('click', checkAnswer);
+                
+            answerButtonsEl.appendChild(button);
+        });
+        
+        currentQuestion++
+    }
+    
 };
 
-var selectAnswer = function () {
-    answerButtonsEl.addEventListener("click", selectAnswer);
+var selectAnswer = function (event) {
+    var selectedButton = event.target;
+    var answer = questions[i].answer;
+
     checkAnswer();
 
     if (currentQuestion < lastQuestion) {
@@ -73,11 +85,9 @@ var selectAnswer = function () {
 
 // NOT WORKING!
 var checkAnswer = function () { 
-    var response = document.createElement("div");
-    response.setAttribute("id", "answer");
-    questionContainerEl.appendChild(response);
+    
     // If Correct
-    if (questions[currentQuestion].answer === event.target.textContent) {
+    if (answer === selectedButton.innerHTML) {
         response.textContent = "Correct!";
     } else {
     // If wrong, lose 10 seconds
@@ -101,80 +111,13 @@ function countdown () {
 };
 
 var finished = function () {
-    questionContainerEl.innerHTML = "";
-    timerEl.innerHTML = "";
-
-    // Header
-    var headerDone = document.createElement("h1");
-    headerDone.setAttribute("id", "header-done");
-    headerDone.textContent = "All Done!"
-
-    questionContainerEl.appendChild(headerDone);
-
-    // Paragraph
-    var createP = document.createElement("p");
-    createP.setAttribute("id", "createP");
-
-    questionContainerEl.appendChild(createP);
-
+    
     // Calculates time remaining and replaces it with score
-    if (secondsLeft >= 0) {
-        var timeRemaining = timeLeft;
-        var createP2 = document.createElement("p");
-        clearInterval(timeInterval);
-        createP.textContent = "Your final score is: " + timeRemaining;
-
-        questionContainerEl.appendChild(createP2);
+    if (timeLeft >= 0) {
+       
     }
 
-    // Label
-    var createLabel = document.createElement("label");
-    createLabel.setAttribute("id", "createLabel");
-    createLabel.textContent = "Enter your initials: ";
-
-    questionContainerEl.appendChild(createLabel);
-
-    // input
-    var createInput = document.createElement("input");
-    createInput.setAttribute("type", "text");
-    createInput.setAttribute("id", "initials");
-    createInput.textContent = "";
-
-    questionContainerEl.appendChild(createInput);
-
-    // submit
-    var createSubmit = document.createElement("button");
-    createSubmit.setAttribute("type", "submit");
-    createSubmit.setAttribute("id", "Submit");
-    createSubmit.textContent = "Submit";
-
-    questionContainerEl.appendChild(createSubmit);
-
-    // Event listener to capture initials and local storage for initials and score
-    createSubmit.addEventListener("click", function () {
-        var initials = createInput.value;
-
-        if (initials === null) {
-
-            console.log("No value entered!");
-
-        } else {
-            var finalScore = {
-                initials: initials,
-                score: timeRemaining
-            }
-            console.log(finalScore);
-            var allScores = localStorage.getItem("allScores");
-            if (allScores === null) {
-                allScores = [];
-            } else {
-                allScores = JSON.parse(allScores);
-            }
-            allScores.push(finalScore);
-            var newScore = JSON.stringify(allScores);
-            localStorage.setItem("allScores", newScore);
-        }
-    });
+    
 
 };
 
