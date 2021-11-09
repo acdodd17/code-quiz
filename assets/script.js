@@ -4,6 +4,10 @@ var pageContentEl = document.getElementById("page-content");
 var questionContainerEl = document.getElementById("question-container");
 var questionEl = document.getElementById("question");
 var answerButtonsEl = document.getElementById("answer-buttons");
+var answer1 = document.getElementById("1");
+var answer2 = document.getElementById("2");
+var answer3 = document.getElementById("3");
+var answer4 = document.getElementById("4");
 var response = document.getElementById("response");
 
 var questions = [
@@ -51,21 +55,14 @@ var setNextQuestion = function () {
     for (i = 0; i <= questions.length; i++) {
         var newQuestion = questions[currentQuestion];
         questionEl.innerHTML = newQuestion.question;
-
-        var choices = newQuestion.choices; 
-        
-        choices.forEach(choice => {
-            var button = document.getElementsByClassName('ans-btn');
-            button.innerHTML = choice;
-
-            button.addEventListener('click', checkAnswer);
-                
-            answerButtonsEl.appendChild(button);
-        });
-        
-        currentQuestion++
+        answer1.innerText = newQuestion.choices[0];
+        answer2.innerText = newQuestion.choices[1];
+        answer3.innerText = newQuestion.choices[2];
+        answer4.innerText = newQuestion.choices[3];  
     }
-    
+
+    currentQuestion++
+    answerButtonsEl.addEventListener("click", setNextQuestion);
 };
 
 var selectAnswer = function (event) {
