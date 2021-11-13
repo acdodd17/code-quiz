@@ -12,6 +12,8 @@ var results = document.getElementById("results-box");
 var scoreTextEl = document.getElementById("score-text");
 var timeLeft = 75;
 var timeInterval;
+var highScores = document.getElementById("view-high-scores");
+var score;
 
 var questions = [
     {
@@ -29,7 +31,7 @@ var questions = [
         question: "Arrays in JavaScript can be used to store ___________.", 
         choices: ["1. numbers and strings", "2. other arrays", "3. booleans", "4. all of the above", ],
         //answer: "4. all of the above"
-        answer: [false, false, true, false]
+        answer: [false, false, false, true]
     },
     {
         question: "String values must be enclosed within __________ when being assigned to variables.", 
@@ -41,7 +43,7 @@ var questions = [
         question: "A very useful tool used during development and debugging for printing content to the debugger is:", 
         choices: ["1. JavaScript", "2. terminal/bash", "3. for loops", "4. console.log", ], 
         //answer: "4. console.log"
-        answer: [false, false, true, false]
+        answer: [false, false, false, true]
     }
 ]; 
 
@@ -98,9 +100,10 @@ var setNextQuestion = function () {
 
 // NOT WORKING!
 var checkAnswer = function (event) { 
-   
+   var answer = event.target.getAttribute("answer");
+   console.log(answer);
     // If Correct
-    if (event.target === true) {
+    if (answer === "true") {
         response.textContent = "Correct!";
     } else {
     // If wrong, lose 10 seconds
@@ -127,5 +130,30 @@ var finished = function () {
 
 };
 
+var saveScores = function () {
+    
+    var initials = document.getElementById("user-initials").value;
+       var finalScore = {
+        name: initials,
+        score: score
+    }
 
+    console.log(score);
+
+    //set object to local storage with JSON.stringify
+    //get object with JSON.parse
+    // var allScores = localStorage.getItem("allScores");
+    // if (allScores === null) {
+    //     allScores = [];
+    // } else {
+    //     allScores = JSON.parse(allScores);
+    // }
+    // allScores.push(finalScore);
+    // var newScore = JSON.stringify(allScores);
+    // localStorage.setItem("allScores", newScore);
+};
+
+var viewHighScores = function () {
+    highScores.addEventListener("click", viewHighScores);
+}
 startBtnEl.addEventListener("click", startQuiz);
