@@ -12,8 +12,11 @@ var results = document.getElementById("results-box");
 var scoreTextEl = document.getElementById("score-text");
 var timeLeft = 75;
 var timeInterval;
-var highScores = document.getElementById("view-high-scores");
-var score;
+var score = document.createElement("span");
+var highScoresEl = document.getElementById("high-scores");
+var saveScoresEl = document.getElementById("save-score-btn");
+var highScores = [];
+
 
 var questions = [
     {
@@ -98,7 +101,6 @@ var setNextQuestion = function () {
     currentQuestion++
 };
 
-// NOT WORKING!
 var checkAnswer = function (event) { 
    var answer = event.target.getAttribute("answer");
    console.log(answer);
@@ -123,37 +125,53 @@ var finished = function () {
 
     // Calculates time remaining and uses it as score
     if (timeLeft >= 0) {
-        var score = document.createElement("span");
         scoreTextEl.appendChild(score);
         score.textContent = timeLeft;
     }
-
 };
 
-var saveScores = function () {
-    
+var saveScores = function (event) {
+    event.preventDefault();
     var initials = document.getElementById("user-initials").value;
-       var finalScore = {
+    var finalScore = {
         name: initials,
-        score: score
+        score: score.textContent
     }
 
-    console.log(score);
+    console.log(finalScore);
+    highScores.push(finalScore);
+    console.log(highScores);
 
     //set object to local storage with JSON.stringify
-    //get object with JSON.parse
-    // var allScores = localStorage.getItem("allScores");
-    // if (allScores === null) {
-    //     allScores = [];
-    // } else {
-    //     allScores = JSON.parse(allScores);
-    // }
-    // allScores.push(finalScore);
-    // var newScore = JSON.stringify(allScores);
-    // localStorage.setItem("allScores", newScore);
+    localStorage.setItem("highScores",  JSON.stringify(highScores)); 
+
+    displayHighScores();
 };
 
-var viewHighScores = function () {
-    highScores.addEventListener("click", viewHighScores);
+var displayHighScores = function () {
+    //display high scores 
+    highScoresEl.classList.remove("hide");
+    results.classList.add("hide");
+    //JSON.parse to get objects from local storage
+    highScores = JSON.parse(localStorage.getItem("highScores"));
+    var highScoresListEl = document.getElementById("high-scores-list");
+    highScoresListEl.innerHTML = "";
+    for (i = 0; i < highScores.length; i++) {
+        var listItemEl = document.createElement("li");
+        listItemEl.textContent = highScores[i].name + " - " + highScores[i].score;
+        highScoresListEl.appendChild(listItemEl);
+    }
 }
+
+saveScoresEl.addEventListener("click", saveScores);   
+
+var viewHighScoresLink = document.getElementById("view-high-scores");
+
+var viewHighScores = function () {
+    pageContentEl.classList.add("hide");
+    questionContainerEl.classList.add("hide");
+    highScoresEl.classList.remove("hide");
+}
+
+viewHighScoresLink.addEventListener("click", viewHighScores);
 startBtnEl.addEventListener("click", startQuiz);
