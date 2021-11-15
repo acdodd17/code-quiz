@@ -20,7 +20,7 @@ This quiz was created to test your knowledge of JavaScript fundamentals. Make su
 Deployed URL ("https://acdodd17.github.io/code-quiz/")
 
 ## WEBPAGE APPLICATION APPEARANCE 
-![screenshot] (./assets/webpage.png)
+![Screenshot of webpage](./assets/webpage.png)
 
 ## CONTRIBUTION 
 Made by Anna Dodd 
