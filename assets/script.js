@@ -51,7 +51,6 @@ var questions = [
 ]; 
 
 var currentQuestion = 0;
-var lastQuestion = questions.length-1;
 
 var countdown = function () {
     
@@ -140,27 +139,31 @@ var saveScores = function (event) {
 
     console.log(finalScore);
     highScores.push(finalScore);
-    console.log(highScores);
 
-    //set object to local storage with JSON.stringify
-    localStorage.setItem("highScores",  JSON.stringify(highScores)); 
+    //save object to local storage with JSON.stringify
+    localStorage.setItem("highScores",  JSON.stringify(highScores));
 
     displayHighScores();
 };
 
 var displayHighScores = function () {
-    //display high scores 
-    highScoresEl.classList.remove("hide");
-    results.classList.add("hide");
-    //JSON.parse to get objects from local storage
-    highScores = JSON.parse(localStorage.getItem("highScores"));
+    
     var highScoresListEl = document.getElementById("high-scores-list");
     highScoresListEl.innerHTML = "";
+
+    //JSON.parse to get highScores from local storage
+    highScores = (JSON.parse(localStorage.getItem("highScores")));
+
     for (i = 0; i < highScores.length; i++) {
         var listItemEl = document.createElement("li");
         listItemEl.textContent = highScores[i].name + " - " + highScores[i].score;
         highScoresListEl.appendChild(listItemEl);
     }
+    console.log(highScores);
+
+    //display high scores 
+    highScoresEl.classList.remove("hide");
+    results.classList.add("hide");
 }
 
 saveScoresEl.addEventListener("click", saveScores);   
@@ -171,6 +174,7 @@ var viewHighScores = function () {
     pageContentEl.classList.add("hide");
     questionContainerEl.classList.add("hide");
     highScoresEl.classList.remove("hide");
+    displayHighScores();
 }
 
 viewHighScoresLink.addEventListener("click", viewHighScores);
