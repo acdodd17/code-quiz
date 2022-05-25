@@ -138,6 +138,8 @@ var saveScores = function (event) {
     }
 
     console.log(finalScore);
+    highScores = (JSON.parse(localStorage.getItem("highScores")));
+
     highScores.push(finalScore);
 
     //save object to local storage with JSON.stringify
